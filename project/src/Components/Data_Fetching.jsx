@@ -3,18 +3,44 @@ import React, {useState, useEffect} from "react"
 const Data_Fetching = ({userId}) => {
 
     const [posts, setPosts] = useState([]);
-    const [count, setCount] = useState(0);
+    const [inputUserId, setInputUserId]= useState(0);
 
     useEffect(()=>{
-        console.log('This is an useEffect Function');
-        setPosts([...posts, count])
-    }, [count]);
+        const fetchData = async() => {
+            const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+
+            console.log(response)
+            const data = await response.json();
+            setPosts(data);
+            console.log(data);
+            
+        };
+        fetchData();
+    }, [userId]);
+
+    const setInputUserIdfunction = (e) =>{
+        setInputUserId(Number(e.target.value));
+        
+    }
+
+    const setUserId = () =>{
+        console.log(inputUserId);
+    }
 
   return (
     <div>
-      <h1>{count}</h1>
-      <button onClick={()=>{setCount(count+1)}}>Increase</button>
-      <ul>{posts}</ul>
+
+        <input type="text" value={inputUserId} onChange={setInputUserIdfunction}/>
+        <button onClick={setUserId}>Click me</button>
+        {
+            posts.map((post)=>(
+                <div key={post.id}>
+                    <h4>{post.id}</h4>
+                    <h3>{post.title}</h3>
+                    <p>{post.body}</p>
+                </div>
+            ))
+        }
     </div>
   )
 }
