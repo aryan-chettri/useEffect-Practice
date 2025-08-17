@@ -1,6 +1,6 @@
 import React, { useState, useEffect, } from "react"
 
-const Countedown_Timer = ({initialValue = 10}) => {
+const Countedown_Timer = ({initialValue = 64600}) => {
 
     const [timeRemaining, setTimeRemaining] = useState(initialValue);
 
@@ -23,7 +23,7 @@ const Countedown_Timer = ({initialValue = 10}) => {
 
   return (
     <div>
-      <h1>Remaining Time : {timeRemaining}</h1>
+      <h1>Remaining Time : {timeRemaining} secs</h1>
     </div>
   )
 }
